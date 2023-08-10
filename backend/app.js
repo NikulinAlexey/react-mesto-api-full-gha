@@ -27,13 +27,6 @@ app.use(cors({
   credentials: true,
 }), router);
 
-app.use(cors({
-  origin: ['https://alekseyNikulin-front15.nomoreparties.co', 'http://localhost:3000'],
-  // origin: ['https://nikulinalexey.github.io'],
-  // origin: ['http://localhost:3000'],
-  credentials: true,
-}), router);
-
 app.use(router);
 
 app.use((req, res, next) => {
