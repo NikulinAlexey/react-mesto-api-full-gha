@@ -8,8 +8,10 @@ import Main from './Main';
 import Login from './Login';
 import Header from './Header';
 import Footer from './Footer';
-import api from '../utils/Api';
+
 import * as auth from '../auth';
+import * as api from '../utils/Api';
+
 import Register from './Register';
 import ImagePopup from './ImagePopup';
 import InfoTooltip from './InfoTooltip';
@@ -23,7 +25,6 @@ import ProtectedRouteElement from './ProtectedRouteElement';
 function App() {
   // Стейт переменные:
   const [cards, setCards] = useState([]);
-  const [email, setEmail] = useState('email');
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [selectedCard, setSelectedCard] = useState(null);
@@ -72,36 +73,21 @@ function App() {
 
   // Функции и API-запросы регистрации, авторизации:
   useEffect(() => {
-    if (localStorage.getItem('jwt')) {
-      const jwt = localStorage.getItem('jwt')
-      auth.checkToken(jwt)
-        .then(({ email }) => {
-          if (email) {
-            setEmail(email);
-          }
-        })
-        .then(() => {
-          setLoggedIn(true);
-          navigate('/');
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
-  }, []);
-  useEffect(() => {
-    setEmail(localStorage.getItem('email'))
+    auth.checkToken()
+      .then((user) => {
+        setCurrentUser(user);
+        setLoggedIn(true);
+      })
+      .then(() => {
+        navigate('/');
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }, []);
 
   function onSignout() {
-    localStorage.clear('jwt');
     setLoggedIn(false);
-  }
-  function onLogin(email, data) {
-    localStorage.setItem('jwt', data.token);
-    localStorage.setItem('email', email);
-
-    setLoggedIn(true);
   }
   function handleRegister(password, email) {
     auth.register(password, email)
@@ -117,10 +103,9 @@ function App() {
   }
   function handleAuthorize(password, email) {
     auth.authorize(password, email)
-      .then(data => {
-        if (data.token) {
-          onLogin(email, data)
-        }
+      .then((user) => {
+        setCurrentUser(user);
+        setLoggedIn(true);
       })
       .then(() => {
         navigate('/');
@@ -168,8 +153,8 @@ function App() {
     setButtonTextSavePopup('Сохранение...')
 
     api.editProfileInfo(userData)
-      .then((res) => {
-        setCurrentUser(res)
+      .then((refreshedUser) => {
+        setCurrentUser(refreshedUser)
       })
       .then(() => {
         closeAllPopups()
@@ -185,8 +170,8 @@ function App() {
     setButtonTextSavePopup('Сохранение...')
 
     api.addNewCard(cardData)
-      .then((newCard) => {
-        setCards([newCard, ...cards])
+      .then((postedCard) => {
+        setCards([postedCard, ...cards])
       })
       .then(() => {
         closeAllPopups()
@@ -223,8 +208,8 @@ function App() {
     setIsSpinnerVisible(true);
 
     api.getInitialCards()
-      .then((res) => {
-        setCards(res)
+      .then((cards) => {
+        setCards(cards.reverse())
       })
       .catch((err) => {
         console.log(err)
@@ -233,24 +218,12 @@ function App() {
         setIsSpinnerVisible(false)
       })
   }, []);
-  useEffect(() => {
-    api.getProfileInfo()
-      .then((userInfo) => {
-        setCurrentUser(userInfo)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-      .finally(() => {
-
-      })
-  }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Header
-          email={email}
+          email={currentUser.email}
           loggedIn={loggedIn}
           onSignout={onSignout}
         />

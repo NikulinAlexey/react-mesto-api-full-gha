@@ -20,7 +20,7 @@ const login = (req, res, next) => {
             }, 'SECRET');
 
             // Зашиваю токен в куку
-            res.cookie('jwt', jwt, { maxAge: 360000, httpOnly: true, sameSite: true });
+            res.cookie('jwt', jwt, { maxAge: 3600000 * 24 * 7, httpOnly: true, sameSite: true });
             res.send(user);
           } else {
             throw new UnauthorizedError('Неправильная почта или пароль');
