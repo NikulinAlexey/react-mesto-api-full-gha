@@ -2,47 +2,24 @@ const BASE_URL = 'http://localhost:3001';
 const headers = {
   'Content-Type': 'application/json',
 }
+const credentials = 'include';
 const checkResponse = (res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
 
-export function getProfileInfo() {
-  return fetch(`${BASE_URL}/users/me`, {
-    headers,
-    credentials: 'include',
-  })
-    .then(checkResponse)
-}
-
-
-export function getInitialCards() {
+export function getCards() {
   return fetch(`${BASE_URL}/cards`, {
+    method: 'GET',
     headers,
-    credentials: 'include',
+    credentials,
   })
     .then(checkResponse)
 }
 
-export function editProfileInfo(userData) {
-  return fetch(`${BASE_URL}/users/me`, {
-    method: 'PATCH',
-    headers,
-    body: JSON.stringify({
-      name: `${userData.name}`,
-      about: `${userData.about}`
-    }),
-    credentials: 'include',
-  })
-    .then(checkResponse)
-}
-
-export function addNewCard(cardData) {
+export function createCard(cardData) {
   return fetch(`${BASE_URL}/cards`, {
     method: 'POST',
     headers,
-    body: JSON.stringify({
-      name: `${cardData.place}`,
-      link: `${cardData.link}`
-    }),
-    credentials: 'include',
+    body: JSON.stringify(cardData),
+    credentials,
   })
     .then(checkResponse)
 }
@@ -51,46 +28,56 @@ export function deleteCard(cardId) {
   return fetch(`${BASE_URL}/cards/${cardId}`, {
     method: 'DELETE',
     headers,
-    credentials: 'include',
+    credentials,
   })
     .then(checkResponse)
 }
 
-export function addLike(cardId) {
+export function addLikeToCard(cardId) {
   return fetch(`${BASE_URL}/cards/${cardId}/likes`, {
     method: 'PUT',
     headers,
-    credentials: 'include',
+    credentials,
   })
     .then(checkResponse)
 }
 
-export function removeLike(cardId) {
+export function removeLikeFromCard(cardId) {
   return fetch(`${BASE_URL}/cards/${cardId}/likes`, {
     method: 'DELETE',
     headers,
-    credentials: 'include',
+    credentials,
   })
     .then(checkResponse)
 }
-export function changeLikeCardStatus(id, isLiked) {
+export function changeLikeCardStatus(cardId, isLiked) {
   return (
     isLiked ? (
-      removeLike(id)
+      removeLikeFromCard(cardId)
     ) : (
-      addLike(id)
+      addLikeToCard(cardId)
     )
   )
 }
 
-export function changeAvatar(inputValue) {
+export function updateProfile(userData) {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'PATCH',
+    headers,
+    body: JSON.stringify(userData),
+    credentials,
+  })
+    .then(checkResponse)
+}
+
+export function updateAvatar(inputValue) {
   return fetch(`${BASE_URL}/users/me/avatar`, {
     method: 'PATCH',
     headers,
     body: JSON.stringify({
       avatar: `${inputValue}`,
     }),
-    credentials: 'include',
+    credentials,
   })
     .then(checkResponse)
 }

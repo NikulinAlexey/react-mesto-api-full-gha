@@ -2,6 +2,8 @@ const jsonWebToken = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 
+const { NODE_ENV, SECRET_KEY } = process.env;
+
 const UnauthorizedError = require('../errors/unauthorized-error');
 
 const login = (req, res, next) => {
@@ -17,7 +19,7 @@ const login = (req, res, next) => {
             // создаю токен
             const jwt = jsonWebToken.sign({
               _id: user._id,
-            }, 'SECRET');
+            }, NODE_ENV === 'production' ? SECRET_KEY : 'dev-secret');
 
             // Зашиваю токен в куку
             res.cookie('jwt', jwt, { maxAge: 3600000 * 24 * 7, httpOnly: true, sameSite: true });

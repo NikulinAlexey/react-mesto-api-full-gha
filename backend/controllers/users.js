@@ -65,7 +65,7 @@ const updateAvatar = (req, res, next) => {
   )
     .orFail(() => new NotFoundError('Пользователь не найден'))
     .then((user) => {
-      res.send({ user });
+      res.send(user);
     })
     .catch(next);
 };

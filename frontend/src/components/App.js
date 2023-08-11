@@ -84,6 +84,7 @@ function App() {
       .catch((err) => {
         console.log(err)
       })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function onSignout() {
@@ -152,7 +153,7 @@ function App() {
   function handleUpdateUser(userData) {
     setButtonTextSavePopup('Сохранение...')
 
-    api.editProfileInfo(userData)
+    api.updateProfile(userData)
       .then((refreshedUser) => {
         setCurrentUser(refreshedUser)
       })
@@ -169,7 +170,7 @@ function App() {
   function handleAddPlaceSubmit(cardData) {
     setButtonTextSavePopup('Сохранение...')
 
-    api.addNewCard(cardData)
+    api.createCard(cardData)
       .then((postedCard) => {
         setCards([postedCard, ...cards])
       })
@@ -186,13 +187,9 @@ function App() {
   function handleUpdateAvatar(avatarInputValue) {
     setButtonTextSavePopup('Сохранение...');
 
-    api.changeAvatar(avatarInputValue)
-      .then(() => {
-        setCurrentUser({
-          avatar: avatarInputValue,
-          name: currentUser.name,
-          about: currentUser.about,
-        })
+    api.updateAvatar(avatarInputValue)
+      .then((updatedUser) => {
+        setCurrentUser(updatedUser)
       })
       .then(() => {
         closeAllPopups()
@@ -207,7 +204,7 @@ function App() {
   useEffect(() => {
     setIsSpinnerVisible(true);
 
-    api.getInitialCards()
+    api.getCards()
       .then((cards) => {
         setCards(cards.reverse())
       })

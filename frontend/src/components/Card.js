@@ -17,7 +17,6 @@ function Card({
 
   function handleClick() {
     onCardClick(card);
-    console.log(card)
   } 
   function handleLikeClick() {
     onCardLike(card);
