@@ -18,10 +18,11 @@ mongoose.connect('mongodb://0.0.0.0:27017/mestodb')
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(cors({
-  origin: 'http://alekseynikulin-front15.nomoreparties.co',
-  credentials: 'include',
-}), router);
+app.options('*', cors(), router);
+// app.use(cors({
+//   origin: 'http://alekseynikulin-front15.nomoreparties.co',
+//   credentials: 'include',
+// }), router);
 
 app.use((next) => {
   next(new NotFoundError('Страница не найдена'));
