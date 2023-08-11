@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-  origin: ['https://alekseyNikulin-front15.nomoreparties.co', process.env.BASE_URL],
+  origin: ['https://alekseynikulin-front15.nomoreparties.co', process.env.BASE_URL],
   credentials: true,
 }), router);
 
