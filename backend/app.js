@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
 const router = require('./routes');
@@ -18,11 +17,23 @@ mongoose.connect('mongodb://0.0.0.0:27017/mestodb')
 app.use(express.json());
 app.use(cookieParser());
 
-app.options('*', cors(), router);
-// app.use(cors({
-//   origin: 'http://alekseynikulin-front15.nomoreparties.co',
-//   credentials: 'include',
-// }), router);
+app.use((req, res, next) => {
+  res.setHeader(
+    'Access-Control-Allow-Origin',
+    [
+      'http://alekseynikulin-front15.nomoreparties.co',
+      'https://alekseynikulin-front15.nomoreparties.co',
+    ],
+  );
+  res.setHeader(
+    'Access-Controll-Allow-Headers',
+    'Content-type',
+  );
+
+  next();
+});
+
+app.use(router);
 
 app.use((next) => {
   next(new NotFoundError('Страница не найдена'));
