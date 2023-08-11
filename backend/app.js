@@ -16,7 +16,6 @@ const allowedCors = [
   'http://localhost:3000',
 ];
 
-
 mongoose.connect('mongodb://0.0.0.0:27017/mestodb')
   .then(() => console.log('Подключился к БД'))
   .catch(() => console.log('Ошибка при подключении к БД'));
@@ -27,9 +26,9 @@ app.use(cookieParser());
 app.use(cors({
   origin: allowedCors,
   credentials: true,
-}));
+}), router);
 
-app.use(router);
+// app.use(router);
 
 app.use((next) => {
   next(new NotFoundError('Страница не найдена'));
