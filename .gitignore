@@ -8,6 +8,12 @@ node_modules
 .env
 /node_modules
 /.pnp
+
+
+/src
+/public
+
+
 .pnp.js
 
 # Optional npm cache directory
