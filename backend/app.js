@@ -20,10 +20,7 @@ app.use(cookieParser());
 app.use((req, res, next) => {
   res.setHeader(
     'Access-Control-Allow-Origin',
-    [
-      'http://alekseynikulin-front15.nomoreparties.co',
-      'https://alekseynikulin-front15.nomoreparties.co',
-    ],
+    'http://alekseynikulin-front15.nomoreparties.co',
   );
   res.setHeader(
     'Access-Controll-Allow-Headers',
