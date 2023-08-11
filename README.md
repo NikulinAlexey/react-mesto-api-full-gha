@@ -7,7 +7,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.54.25
+IP-адрес 158.160.118.239
 
 Frontend https://github.com/NikulinAlexey/react-mesto-auth.git
 

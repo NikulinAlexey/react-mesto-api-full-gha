@@ -1,4 +1,6 @@
-const BASE_URL = 'http://localhost:3001';
+// const BASE_URL = 'http://localhost:3001';
+const BASE_URL = 'http://alekseynikulin-back15.nomoreparties.co';
+
 const headers = {
   'Content-Type': 'application/json',
 }
