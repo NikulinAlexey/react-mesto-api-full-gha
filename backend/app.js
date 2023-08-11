@@ -1,5 +1,4 @@
 require('dotenv').config();
-const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
@@ -18,14 +17,20 @@ mongoose.connect('mongodb://0.0.0.0:27017/mestodb')
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(cors({
-  origin: [
-    'https://alekseynikulin-front15.nomoreparties.co',
-    'http://alekseynikulin-front15.nomoreparties.co',
-    process.env.BASE_URL,
-  ],
-  credentials: true,
-}), router);
+const allowedCors = [
+  'https://alekseynikulin-front15.nomoreparties.co',
+  'http://alekseynikulin-front15.nomoreparties.co',
+  'localhost:3000',
+];
+
+app.use((req, res, next) => {
+  const { origin } = req.headers;
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+
+  next();
+});
 
 app.use(router);
 
