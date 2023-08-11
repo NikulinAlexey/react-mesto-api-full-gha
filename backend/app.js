@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
+const cors = require('./middlewares/cors');
 
 const router = require('./routes');
 const errorHandler = require('./middlewares/error');
@@ -17,18 +18,7 @@ mongoose.connect('mongodb://0.0.0.0:27017/mestodb')
 app.use(express.json());
 app.use(cookieParser());
 
-app.use((req, res, next) => {
-  res.setHeader(
-    'Access-Control-Allow-Origin',
-    'http://alekseynikulin-front15.nomoreparties.co',
-  );
-  res.setHeader(
-    'Access-Controll-Allow-Headers',
-    'Content-type',
-  );
-
-  next();
-});
+app.use(cors);
 
 app.use(router);
 
