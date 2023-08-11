@@ -10,6 +10,12 @@ const NotFoundError = require('./errors/not-found-error');
 
 const { PORT = 3000 } = process.env;
 const app = express();
+const allowedCors = [
+  'http://alekseynikulin-front15.nomoreparties.co',
+  'https://alekseynikulin-front15.nomoreparties.co',
+  'http://localhost:3000',
+];
+
 
 mongoose.connect('mongodb://0.0.0.0:27017/mestodb')
   .then(() => console.log('Подключился к БД'))
@@ -19,11 +25,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-  origin: [
-    'http://alekseynikulin-front15.nomoreparties.co',
-    'https://alekseynikulin-front15.nomoreparties.co',
-    'http://localhost:3000',
-  ],
+  origin: allowedCors,
   credentials: 'include',
 }));
 
