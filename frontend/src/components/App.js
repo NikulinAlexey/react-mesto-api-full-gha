@@ -73,6 +73,8 @@ function App() {
 
   // Функции и API-запросы регистрации, авторизации:
   useEffect(() => {
+    setIsSpinnerVisible(true);
+
     auth.checkToken()
       .then((user) => {
         setCurrentUser(user);
@@ -85,8 +87,19 @@ function App() {
         setLoggedIn(false);
         console.log(err)
       })
+
+    api.getCards()
+      .then((cards) => {
+        setCards(cards.reverse())
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      .finally(() => {
+        setIsSpinnerVisible(false)
+      })
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [loggedIn]);
 
   function onSignout() {
     setLoggedIn(false);
@@ -203,18 +216,7 @@ function App() {
       })
   }
   useEffect(() => {
-    setIsSpinnerVisible(true);
 
-    api.getCards()
-      .then((cards) => {
-        setCards(cards.reverse())
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-      .finally(() => {
-        setIsSpinnerVisible(false)
-      })
   }, [loggedIn]);
 
   return (
