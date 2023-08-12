@@ -1,9 +1,9 @@
-export const BASE_URL = 'https://alekseynikulin-back15.nomoreparties.co';
+// export const BASE_URL = 'https://alekseynikulin-back15.nomoreparties.co';
+export const BASE_URL = 'http://localhost:3001';
 export const headers = {
   'Content-Type': 'application/json',
 };
 export const credentials = 'include';
-
 export const checkResponse = (res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
 
 export function getCards() {
