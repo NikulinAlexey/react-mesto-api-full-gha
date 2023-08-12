@@ -14,7 +14,8 @@ export function register(password, email) {
   })
     .then(checkResponse)
 };
-export function authorize(password,email ) {
+export function authorize(password, email) {
+  console.log(headers, credentials)
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     headers,

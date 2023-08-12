@@ -23,7 +23,8 @@ import EditProfilePopup from './EditProfilePopup';
 import ProtectedRouteElement from './ProtectedRouteElement';
 
 function App() {
-  // Стейт переменные:
+  const navigate = useNavigate();
+ 
   const [cards, setCards] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
@@ -39,9 +40,6 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [infoTooltip, setIsInfoTooltip] = useState({ isSuccessRegister: false, isOpen: false});
-  
-  //
-  const navigate = useNavigate();
 
   // Смена state-ов:
   function closeAllPopups() {
@@ -75,8 +73,8 @@ function App() {
   useEffect(() => {
     auth.checkToken()
       .then((user) => {
-        setCurrentUser(user);
         setLoggedIn(true);
+        setCurrentUser(user);
       })
       .then(() => {
         navigate('/');
@@ -217,9 +215,6 @@ function App() {
         setButtonTextSavePopup('Сохранить')
       })
   }
-  useEffect(() => {
-
-  }, [loggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
