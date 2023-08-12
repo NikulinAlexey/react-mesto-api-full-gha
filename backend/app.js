@@ -15,10 +15,10 @@ const allowedCors = [
   'https://localhost:3000',
 ];
 
-const { PORT = 3001, DB_ADDRESS } = process.env;
+const { PORT = 3001 } = process.env;
 const app = express();
 
-mongoose.connect(DB_ADDRESS)
+mongoose.connect('mongodb://0.0.0.0:27017/mestodb')
   .then(() => console.log('Подключился к БД'))
   .catch(() => console.log('Ошибка при подключении к БД'));
 
