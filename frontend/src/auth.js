@@ -1,4 +1,4 @@
-const BASE_URL = 'http://alekseynikulin-back15.nomoreparties.co';
+const BASE_URL = 'https://alekseynikulin-back15.nomoreparties.co';
 
 const headers = {
   'Content-Type': 'application/json',
