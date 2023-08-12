@@ -10,7 +10,7 @@ export function getCards() {
   return fetch(`${BASE_URL}/cards`, {
     method: 'GET',
     headers,
-    credentials,
+    credentials: 'include',
   })
     .then(checkResponse)
 }
