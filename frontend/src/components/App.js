@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate} from 'react-router-dom';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
@@ -73,8 +73,6 @@ function App() {
 
   // Функции и API-запросы регистрации, авторизации:
   useEffect(() => {
-    setIsSpinnerVisible(true);
-
     auth.checkToken()
       .then((user) => {
         setCurrentUser(user);
@@ -87,6 +85,11 @@ function App() {
         setLoggedIn(false);
         console.log(err)
       })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    setIsSpinnerVisible(true);
 
     api.getCards()
       .then((cards) => {
@@ -98,8 +101,8 @@ function App() {
       .finally(() => {
         setIsSpinnerVisible(false)
       })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loggedIn]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[loggedIn])
 
   function onSignout() {
     setLoggedIn(false);
