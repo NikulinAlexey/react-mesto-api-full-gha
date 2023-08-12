@@ -9,6 +9,6 @@
 
 IP-адрес 158.160.118.239
 
-Frontend https://github.com/NikulinAlexey/react-mesto-auth.git
+Frontend https://alekseynikulin-front15.nomoreparties.co/
 
-Backend https://github.com/NikulinAlexey/express-mesto-gha.git
+Backend https://alekseynikulin-back15.nomoreparties.co/
