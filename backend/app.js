@@ -8,13 +8,14 @@ const router = require('./routes');
 const errorHandler = require('./middlewares/error');
 const NotFoundError = require('./errors/not-found-error');
 
-const { PORT = 3000 } = process.env;
-const app = express();
 const allowedCors = [
   'http://alekseynikulin-front15.nomoreparties.co',
   'https://alekseynikulin-front15.nomoreparties.co',
   'http://localhost:3000',
 ];
+
+const { PORT = 3000 } = process.env;
+const app = express();
 
 mongoose.connect('mongodb://0.0.0.0:27017/mestodb')
   .then(() => console.log('Подключился к БД'))
@@ -28,7 +29,7 @@ app.use(cors({
   credentials: true,
 }), router);
 
-// app.use(router);
+app.use(router);
 
 app.use((next) => {
   next(new NotFoundError('Страница не найдена'));
