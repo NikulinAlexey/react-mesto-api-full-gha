@@ -19,7 +19,7 @@ const login = (req, res, next) => {
             // создаю токен
             const jwt = jsonWebToken.sign({
               _id: user._id,
-            }, NODE_ENV === 'production' ? SECRET_KEY : 'dev-secret');
+            }, 'SECRET');
 
             // Зашиваю токен в куку
             res.cookie('jwt', jwt, { maxAge: 3600000 * 24 * 7, httpOnly: true, sameSite: true });
