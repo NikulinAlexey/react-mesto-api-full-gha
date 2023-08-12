@@ -11,7 +11,7 @@ const NotFoundError = require('./errors/not-found-error');
 const allowedCors = [
   'http://alekseynikulin-front15.nomoreparties.co',
   'https://alekseynikulin-front15.nomoreparties.co',
-  'http://localhost:3000',
+  process.env.BASE_URL,
 ];
 
 const { PORT = 3000 } = process.env;
@@ -28,8 +28,6 @@ app.use(cors({
   origin: allowedCors,
   credentials: true,
 }), router);
-
-app.use(router);
 
 app.use((next) => {
   next(new NotFoundError('Страница не найдена'));
