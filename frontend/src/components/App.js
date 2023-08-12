@@ -215,7 +215,7 @@ function App() {
       .finally(() => {
         setIsSpinnerVisible(false)
       })
-  }, []);
+  }, [loggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
