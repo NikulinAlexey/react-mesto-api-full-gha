@@ -27,7 +27,9 @@ app.use(cookieParser());
 app.use(cors({
   origin: allowedCors,
   credentials: true,
-}), router);
+}));
+
+app.use(router);
 
 app.use((next) => {
   next(new NotFoundError('Страница не найдена'));
