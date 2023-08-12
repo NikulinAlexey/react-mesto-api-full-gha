@@ -8,7 +8,7 @@ const auth = (req, res, next) => {
   try {
     payload = jwt.verify(token, process.env.SECRET_KEY);
   } catch (err) {
-    next(new UnauthorizedError('Ошибка авторизации'));
+    next(new UnauthorizedError('Ошибка авторизации в auth middleware'));
   }
 
   req.user = payload;
