@@ -1,16 +1,16 @@
-const BASE_URL = 'https://alekseynikulin-back15.nomoreparties.co';
-
-const headers = {
+export const BASE_URL = 'https://alekseynikulin-back15.nomoreparties.co';
+export const headers = {
   'Content-Type': 'application/json',
-}
-const credentials = 'include';
-const checkResponse = (res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+};
+export const credentials = 'include';
+
+export const checkResponse = (res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
 
 export function getCards() {
   return fetch(`${BASE_URL}/cards`, {
     method: 'GET',
     headers,
-    credentials: 'include',
+    credentials,
   })
     .then(checkResponse)
 }

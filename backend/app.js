@@ -11,7 +11,7 @@ const NotFoundError = require('./errors/not-found-error');
 const allowedCors = [
   'http://alekseynikulin-front15.nomoreparties.co',
   'https://alekseynikulin-front15.nomoreparties.co',
-  process.env.BASE_URL,
+  'http://localhost:3000',
 ];
 
 const { PORT = 3000 } = process.env;
