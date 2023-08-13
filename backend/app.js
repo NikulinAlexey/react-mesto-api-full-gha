@@ -33,15 +33,15 @@ mongoose.connect('mongodb://0.0.0.0:27017/mestodb')
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(limiter);
-app.use(helmet());
-
 app.use(
   cors({
     origin: allowedCors,
     credentials: true,
   }),
 );
+
+app.use(limiter);
+app.use(helmet());
 
 app.get('/crash-test', () => {
   setTimeout(() => {
