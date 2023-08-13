@@ -47,7 +47,7 @@ app.use(
 );
 
 app.use(limiter);
-// app.use(helmet());
+app.use(helmet());
 
 app.use(router);
 
