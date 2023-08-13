@@ -11,10 +11,10 @@ const errorHandler = require('./middlewares/error');
 const NotFoundError = require('./errors/not-found-error');
 
 const allowedCors = [
+  'https://alekseynikulin-front15.nomoreparties.co',
+  'http://alekseynikulin-front15.nomoreparties.co',
   'http://localhost:3000',
   'https://localhost:3000',
-  'http://alekseynikulin-front15.nomoreparties.co',
-  'https://alekseynikulin-front15.nomoreparties.co',
 ];
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
