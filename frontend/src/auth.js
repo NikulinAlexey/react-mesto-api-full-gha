@@ -24,6 +24,15 @@ export function authorize(password, email) {
     .then(checkResponse)
 };
 
+export function signOut() {
+  return fetch(`${BASE_URL}/signout`, {
+    method: 'GET',
+    headers,
+    credentials,
+  })
+    .then(checkResponse)
+};
+
 export function checkToken() {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',

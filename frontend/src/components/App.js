@@ -39,7 +39,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
-  const [infoTooltip, setIsInfoTooltip] = useState({ isSuccessRegister: false, isOpen: false});
+  const [infoTooltip, setIsInfoTooltip] = useState({ isOpen: false, isSuccessfullAction: false });
 
   // Смена state-ов:
   function closeAllPopups() {
@@ -65,8 +65,8 @@ function App() {
   function handleDeleteCardClick(card) {
     setSelectedCardToDelete(card)
   }
-  function infoTooltipSetter(isOpen, isSuccessRegister) {
-    setIsInfoTooltip({ isSuccessRegister, isOpen });
+  function infoTooltipSetter(isOpen, isSuccessfullAction) {
+    setIsInfoTooltip({ isOpen, isSuccessfullAction });
   }
 
   // Функции и API-запросы регистрации, авторизации:
@@ -102,8 +102,14 @@ function App() {
   },[loggedIn])
 
   function onSignout() {
-    setLoggedIn(false);
-  }
+    auth.signOut()
+      .then(() => {
+        setLoggedIn(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  };
   function handleRegister(password, email) {
     auth.register(password, email)
       .then(() => {
@@ -114,8 +120,8 @@ function App() {
       })
       .catch((err) => {
         infoTooltipSetter(true, false);
-      })
-  }
+      });
+  };
   function handleAuthorize(password, email) {
     auth.authorize(password, email)
       .then((user) => {
@@ -126,9 +132,10 @@ function App() {
         navigate('/');
       })
       .catch((err) => {
-        console.log(err.message)
+        infoTooltipSetter(true, false);
+        console.log(err.message);
       })
-  }
+  };
 
   // API-запросы карточек и пользователя:
   function handleCardLike(card) {
@@ -289,7 +296,7 @@ function App() {
       <InfoTooltip
         onClose={closeAllPopups}
         isOpen={infoTooltip.isOpen}
-        isSuccessRegister={infoTooltip.isSuccessRegister}
+        isSuccessfullAction={infoTooltip.isSuccessfullAction}
       />
     </CurrentUserContext.Provider>
   );

@@ -58,7 +58,26 @@ const createUser = (req, res, next) => {
     .catch(next);
 };
 
+const logOut = (req, res, next) => {
+  try {
+    res.cookie(
+      'jwt',
+      null,
+      {
+        expires: new Date(Date.now()),
+        httpOnly: true,
+      },
+    );
+    res.status(200).send({ message: 'successful logout' });
+  } catch (err) {
+    return next(new Error('unsuccessful logout'));
+  }
+
+  next();
+};
+
 module.exports = {
   login,
+  logOut,
   createUser,
 };

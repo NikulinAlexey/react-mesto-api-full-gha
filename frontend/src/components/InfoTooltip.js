@@ -4,7 +4,7 @@ import successImage from '../images/successRegister-image.png';
 function InfoTooltip({
   isOpen,
   onClose,
-  isSuccessRegister
+  isSuccessfullAction
 }) {
 
   return (
@@ -18,11 +18,11 @@ function InfoTooltip({
         />
         <img
           className="popup__image"
-          src={isSuccessRegister ? successImage : errorImage}
-          alt={isSuccessRegister ? "Картинка успешной регистрации" : "Картинка ошибки при регистрации"}
+          src={isSuccessfullAction ? successImage : errorImage}
+          alt={isSuccessfullAction ? "Картинка успешной регистрации" : "Картинка ошибки при регистрации"}
         />
         <h2 className="popup__title popup__title_type_info">
-          {isSuccessRegister ? "Вы успешно зарегистрировались!" : "Что-то пошло не так! Попробуйте ещё раз."} 
+          {isSuccessfullAction ? "Вы успешно зарегистрировались!" : "Что-то пошло не так! Попробуйте ещё раз."} 
         </h2>
 
       </div>

@@ -1,19 +1,27 @@
 require('dotenv').config();
+const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
-const cors = require('cors');
 
 const router = require('./routes');
 const errorHandler = require('./middlewares/error');
 const NotFoundError = require('./errors/not-found-error');
 
 const allowedCors = [
-  'http://alekseynikulin-front15.nomoreparties.co',
-  'https://alekseynikulin-front15.nomoreparties.co',
   'http://localhost:3000',
   'https://localhost:3000',
+  'http://alekseynikulin-front15.nomoreparties.co',
+  'https://alekseynikulin-front15.nomoreparties.co',
 ];
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 const { PORT = 3001 } = process.env;
 const app = express();
@@ -24,6 +32,9 @@ mongoose.connect('mongodb://0.0.0.0:27017/mestodb')
 
 app.use(express.json());
 app.use(cookieParser());
+
+app.use(limiter);
+app.use(helmet());
 
 app.use(
   cors({
@@ -44,6 +55,6 @@ app.use((next) => {
   next(new NotFoundError('Страница не найдена'));
 });
 app.use(errorHandler);
-app.listen(PORT, () => {
-  console.log(`слушаю ${PORT} порт`);
+app.listen(3001, () => {
+  console.log(`Слушаю ${PORT} порт`);
 });
