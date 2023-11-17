@@ -8,14 +8,14 @@ const auth = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, process.env.NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
+    payload = jwt.verify(token, JWT_SECRET);
   } catch (err) {
     return next(new UnauthorizedError('Ошибка авторизации в auth middleware'));
   }
 
   req.user = payload;
 
-  next();
+  return next();
 };
 
 module.exports = auth;

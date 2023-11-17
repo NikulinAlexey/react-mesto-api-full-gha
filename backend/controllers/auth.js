@@ -2,9 +2,9 @@ const jsonWebToken = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 
-const { NODE_ENV, JWT_SECRET } = process.env;
-
 const UnauthorizedError = require('../errors/unauthorized-error');
+
+const { JWT_SECRET } = process.env;
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
@@ -19,7 +19,7 @@ const login = (req, res, next) => {
             // создаю токен
             const jwt = jsonWebToken.sign({
               _id: user._id,
-            }, process.env.NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
+            }, JWT_SECRET);
 
             // Зашиваю токен в куку
             res.cookie('jwt', jwt, { maxAge: 3600000 * 24 * 7, httpOnly: true, sameSite: true });
@@ -72,8 +72,6 @@ const logOut = (req, res, next) => {
   } catch (err) {
     return next(new Error('unsuccessful logout'));
   }
-
-  next();
 };
 
 module.exports = {

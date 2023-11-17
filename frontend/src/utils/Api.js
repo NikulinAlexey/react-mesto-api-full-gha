@@ -1,5 +1,5 @@
-export const BASE_URL = 'https://alekseynikulin-back15.nomoreparties.co';
-// export const BASE_URL = 'http://localhost:3001';
+// export const BASE_URL = 'https://alekseynikulin-back15.nomoreparties.co';
+export const BASE_URL = 'http://localhost:3001';
 export const headers = {
   'Content-Type': 'application/json',
 };
