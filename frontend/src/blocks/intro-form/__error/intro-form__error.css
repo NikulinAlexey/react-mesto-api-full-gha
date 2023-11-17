@@ -1,0 +1,18 @@
+.intro-form__error {
+  font-size: 16px;
+  line-height: 15px;
+  color: #dd4747;
+  display: block;
+  margin: 0 0 0 5px;
+  width: 100%;
+  box-sizing: border-box;
+  height: 56px;
+  font-weight: 400;
+}
+
+@media screen and (max-width: 768px) {
+  .intro-form__error {
+    font-size: 12px;
+    height: 45px;
+  }
+}

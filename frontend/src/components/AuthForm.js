@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import useFormWithValidation from "../hooks/useValidationForm";
 
 function AuthForm({
   title,
@@ -6,25 +6,14 @@ function AuthForm({
   handleSubmit,
   textOfButton
 }) {
-  
-  const [formValue, setFormValue] = useState({
-    password: '',
-    email: '',
-  });
+
+  const { values, handleChange, resetForm, isValid, errors } = useFormWithValidation();
 
   function onSubmit(e) {
-    const { email, password } = formValue;
-    handleSubmit(e, password, email)
+    const { email, password } = values;
+    handleSubmit(e, password, email);
+    resetForm()
   }
-  function handleChange(e) {
-    const name = e.target.name;
-    const value = e.target.value;
-
-    setFormValue({
-      ...formValue,
-      [name]: value
-    })
-  };
 
   return (
     <div className="intro-form" >
@@ -39,10 +28,12 @@ function AuthForm({
           minLength={5}
           id="email-input"
           placeholder="Email"
-          value={formValue.email}
+          value={values.email}
           onChange={handleChange}
           className="intro-form__input"
         />
+        <span id="email-input-error" className="intro-form__error">{errors?.email}</span>
+        
         <input
           required
           minLength={5}
@@ -51,9 +42,11 @@ function AuthForm({
           id="password-input"
           placeholder="Пароль"
           onChange={handleChange}
-          value={formValue.password}
+          value={values.password}
           className="intro-form__input"
         />
+        <span id="password-input-error" className="intro-form__error">{errors?.password}</span>
+
         <button className="intro-form__submit" type="submit"> {textOfButton} </button>
       </form>
       {children}

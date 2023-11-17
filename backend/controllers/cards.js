@@ -20,7 +20,7 @@ const createCard = (req, res, next) => {
     name,
     link,
     likes,
-    owner,
+    owner, 
   })
     .then((card) => {
       res

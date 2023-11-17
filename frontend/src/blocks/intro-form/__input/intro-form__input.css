@@ -15,20 +15,10 @@
   color: #FFFFFF;
 }
 
-.intro-form__input:last-of-type {
-  margin-bottom: 216px;
-}
-
 .intro-form__input::placeholder {
   font-family: 'Inter';
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
   color: #CCCCCC;
-}
-
-@media screen and (max-width: 768px) {
-  .intro-form__input:last-of-type {
-    margin-bottom: 173px;
-  }
 }

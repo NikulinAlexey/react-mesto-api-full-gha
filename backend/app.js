@@ -49,6 +49,6 @@ app.use((next) => {
   next(new NotFoundError('Страница не найдена'));
 });
 app.use(errorHandler);
-app.listen(PORT, () => {
+app.listen(3001, () => {
   console.log(`Слушаю ${PORT} порт`);
 });

@@ -11,6 +11,7 @@
   font-size: 18px;
   line-height: 22px;
   color: #000000;
+  margin-top: 216px;
 }
 
 .intro-form__submit:hover {
@@ -23,5 +24,6 @@
     height: 46px;
     font-size: 16px;
     line-height: 19px;
+    margin-top: 150px;
   }
 }

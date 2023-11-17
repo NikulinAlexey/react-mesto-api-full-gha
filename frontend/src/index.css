@@ -45,6 +45,7 @@
 @import url(./blocks/intro-form/intro-form.css);
 @import url(./blocks/intro-form/__link/intro-form__link.css);
 @import url(./blocks/intro-form/__form/intro-form__form.css);
+@import url(./blocks/intro-form/__error/intro-form__error.css);
 @import url(./blocks/intro-form/__title/intro-form__title.css);
 @import url(./blocks/intro-form/__input/intro-form__input.css);
 @import url(./blocks/intro-form/__submit/intro-form__submit.css);
